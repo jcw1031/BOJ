@@ -1,7 +1,9 @@
+package CodingTestSilver.Graph;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class AtoB16953 {
     public static long n, m;
     public static Queue<Long> queue = new LinkedList<>();
     public static int count = 0;
