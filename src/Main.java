@@ -1,43 +1,33 @@
 import java.io.*;
 import java.util.*;
+import java.math.*;
 
 public class Main {
-    public static long n, m;
-    public static Queue<Long> queue = new LinkedList<>();
-    public static int count = 0;
-
-    public static void bfs(){
-        while(!queue.isEmpty()) {
-            int tmp = queue.size();
-            count++;
-            for(int i=0;i<tmp;i++) {
-                long tt = queue.poll();
-
-                if (tt == m) {
-                    return;
-                }
-
-                if (tt * 2 <= m)
-                    queue.offer((tt * 2));
-                if (tt * 10 + 1 <= m)
-                    queue.offer((tt * 10 + 1));
-            }
+    public static BigInteger factorial(int n, int m){
+        System.out.println("factorial"+ n);
+        if(n <= m){
+            return BigInteger.valueOf(1);
         }
-        System.out.println(-1);
-        System.exit(0);
-    }
 
+        return BigInteger.valueOf((long) n *factorial(n-1, m));
+    }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        n = Long.parseLong(st.nextToken());
-        m = Long.parseLong(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        System.out.println(n+" "+m);
 
-        queue.offer(n);
+        long result;
 
-        bfs();
+        if(m < n-m){
+            result = factorial(n, n-m)/factorial(m, 1);
+        }
+        else{
+            result = factorial(n, m)/factorial(n-m, 1);
+        }
 
-        System.out.println(count);
+        System.out.println(result);
     }
 }
