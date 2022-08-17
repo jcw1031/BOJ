@@ -1,8 +1,12 @@
+//BigInteger 사용법 익히기
+
+package CodingTestSilver.Math;
+
 import java.io.*;
 import java.util.*;
 import java.math.*;
 
-public class Main {
+public class Combination2407 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
