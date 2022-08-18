@@ -1,7 +1,9 @@
+package CodingTestSilver.Math;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Multiplication1629 {
     public static long pow(long a, long b, long c){
         if(b == 1){
             return a%c;
