@@ -1,29 +1,31 @@
 import java.io.*;
 import java.util.*;
 
-public class Main {
-    public static long pow(long a, long b, long c){
-        if(b == 1){
-            return a%c;
-        }
-
-        long tmp = pow(a, b/2, c);
-
-        if(b%2==1){
-            return (tmp*tmp%c)*a%c;
-        }
-        return tmp*tmp%c;
+class Node{
+    public Node left;
+    public Node right;
+    public void setLeftNode(Node node){
+        left = node;
     }
+    public void setRightNode(Node node){
+        right = node;
+    }
+}
 
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st;
 
-        long a = Long.parseLong(st.nextToken());
-        long b = Long.parseLong(st.nextToken());
-        long c = Long.parseLong(st.nextToken());
+        int n = Integer.parseInt(br.readLine());
 
-        System.out.println(pow(a, b, c));
+        for(int i=0;i<n;i++) {
+            st = new StringTokenizer(br.readLine());
+            for(int j=0;j<3;j++) {
+                String tmp = st.nextToken();
 
+
+            }
+        }
     }
 }
