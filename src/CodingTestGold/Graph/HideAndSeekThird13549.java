@@ -1,4 +1,5 @@
-import javax.crypto.spec.PSource;
+package CodingTestGold.Graph;
+
 import java.io.*;
 import java.util.*;
 
@@ -16,11 +17,10 @@ class Position implements Comparable<Position>{
     }
 }
 
-public class Main {
+public class HideAndSeekThird13549 {
     public static int n, k;
     public static boolean[] visited = new boolean[100001];
     public static Queue<Position> queue = new LinkedList<>();
-    public static HashMap<Integer, Integer> map = new HashMap<>();
     public static int time = Integer.MAX_VALUE;
 
     public static void bfs() {
@@ -28,13 +28,8 @@ public class Main {
             Position tmp = queue.poll();
             visited[tmp.num] = true;
             if (tmp.num == k) {
-                if(map.containsKey(tmp.time)){
-                    map.put(tmp.time, map.get(tmp.time)+1);
-                }
-                else{
-                    map.put(tmp.time, 1);
-                }
                 time = Math.min(time, tmp.time);
+                //return tmp.time;
             }
 
             int[] a = new int[3];
@@ -44,7 +39,12 @@ public class Main {
 
             for (int i = 0; i < 3; i++) {
                 if (a[i]>=0 && a[i]<=100000 && !visited[a[i]]) {
-                    queue.add(new Position(a[i], tmp.time + 1));
+                    if(i == 1 || i == 2){
+                        queue.add(new Position(a[i], tmp.time+1));
+                    }
+                    else{
+                        queue.add(new Position(a[i], tmp.time));
+                    }
                 }
             }
         }
@@ -62,6 +62,6 @@ public class Main {
         visited[n] = true;
         bfs();
 
-        System.out.println(time+"\n"+map.get(time));
+        System.out.println(time);
     }
 }
