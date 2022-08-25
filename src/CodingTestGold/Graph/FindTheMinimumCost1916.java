@@ -1,3 +1,7 @@
+//Dijkstra algorithm
+
+package CodingTestGold.Graph;
+
 import java.io.*;
 import java.util.*;
 
@@ -14,7 +18,7 @@ class Node implements Comparable<Node>{
     }
 }
 
-public class Main {
+public class FindTheMinimumCost1916 {
     public static boolean[] visited;
     public static int[] cheapest;
     public static HashMap<Integer, Integer>[] map;
