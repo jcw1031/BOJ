@@ -1,7 +1,9 @@
+package CodingTestSilver.BackTracking;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class NAndMSecond15650 {
     public static int n, m;
     public static boolean[] visited;
     public static StringBuilder sb = new StringBuilder();
