@@ -1,58 +1,34 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+import java.util.*;
 
 public class Test {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-    public static int[] arr;
-    public static int N;
-    public static int count = 0;
+        // 입력 받기
+        int n = sc.nextInt();
 
-    public static void main(String[] args) throws IOException {
+        int[] wine = new int[n];
+        int[] dp = new int[n];
+        for (int i = 0; i < n; i++) {
+            wine[i] = sc.nextInt();
+            if (i == 0) {
+                dp[i] = wine[i];
+                continue;
+            }
+            int first = 0, second = 0;
+            if (i >= 2) second = wine[i] + dp[i-2];
+            if (i >= 1) first = wine[i] + wine[i-1];
+            if (i >= 3) first += dp[i-3];
+            dp[i] = Math.max(first, second);
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        arr = new int[N];
-
-        nQueen(0);
-        System.out.println(count);
-
-    }
-
-    public static void nQueen(int depth) {
-        // 모든 원소를 다 채운 상태면 count 증가 및 return
-        if (depth == N) {
-            count++;
-            return;
+            dp[i] = Math.max(dp[i-1], dp[i]);
         }
 
-        for (int i = 0; i < N; i++) {
-            arr[depth] = i;
-            // 놓을 수 있는 위치일 경우 재귀호출
-            if (Possibility(depth)) {
-                nQueen(depth + 1);
-            }
-        }
+        int answer = 0;
+        for (int dpValue : dp) answer = Math.max(answer, dpValue);
+        System.out.println(answer);
 
-    }
+        sc.close();
 
-    public static boolean Possibility(int col) {
-
-        for (int i = 0; i < col; i++) {
-            // 해당 열의 행과 i열의 행이 일치할경우 (같은 행에 존재할 경우)
-            if (arr[col] == arr[i]) {
-                return false;
-            }
-
-            /*
-             * 대각선상에 놓여있는 경우
-             * (열의 차와 행의 차가 같을 경우가 대각선에 놓여있는 경우다)
-             */
-            else if (Math.abs(col - i) == Math.abs(arr[col] - arr[i])) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
