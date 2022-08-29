@@ -1,7 +1,9 @@
+package CodingTestGold.BackTracking;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class NQueen9663 {
     public static int n;
     public static boolean[] visited;
     public static int count = 0;
