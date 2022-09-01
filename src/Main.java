@@ -4,29 +4,58 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
 
-        int n = Integer.parseInt(br.readLine());
-        int[] volume = new int[n];
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for(int i=0;i<n;i++){
-            volume[i]=Integer.parseInt(br.readLine());
-        }
-        map.put(1, volume[0]);
-        if(n>1)
-            map.put(2, volume[0]+volume[1]);
-        if(n>2) {
-            map.put(3, (Math.max(volume[0], volume[1])) + volume[2]);
-            map.put(3, (Math.max(map.get(3), map.get(2))));
-        }
+        int t = Integer.parseInt(br.readLine());
 
-        for(int i=4;i<=n;i++){
-            int[] tmp = new int[2];
-            tmp[0] = map.get(i-3)+volume[i-1-1]+volume[i-1];
-            tmp[1] = map.get(i-2)+volume[i-1];
-            //System.out.println("i : "+i+" tmp[0] = "+tmp[0]+" tmp[1] = "+tmp[1]);
-            map.put(i, Math.max(map.get(i-1), Math.max(tmp[0], tmp[1])));
-            //System.out.println("dp : "+map.get(i));
+        while(t-->0){
+            int[] input = new int[6];
+            st = new StringTokenizer(br.readLine());
+            for(int i=0;i<6;i++){
+                input[i] = Integer.parseInt(st.nextToken());
+            }
+            double r = Math.sqrt(Math.pow(Math.abs(input[0]-input[1]), 2)+Math.pow(Math.abs(input[3]-input[4]), 2));
+            int rMax, rMin;
+            if(input[2] > input[5]){
+                rMax = input[2];
+                rMin = input[5];
+            }
+            else{
+                rMax = input[5];
+                rMin = input[2];
+            }
+
+            if(input[0] == input[1] && input[3] == input[4]){
+                if(input[2] == input[5]){
+                    bw.write(-1+"\n");
+                    continue;
+                }
+                else{
+                    bw.write(0+"\n");
+                    continue;
+                }
+            }
+            if(rMax > r+rMin){
+                bw.write(0+"\n");
+                continue;
+            }
+            else if(rMax == r+rMin){
+                bw.write(1+"\n");
+                continue;
+            }
+
+            if(r > input[2]+input[5]){
+                bw.write(0+"\n");
+            }
+            else if(r < input[2]+input[5]){
+                bw.write(2+"\n");
+            }
+            else{
+                bw.write(1+"\n");
+            }
         }
-        System.out.println(Collections.max(map.values()));
+        bw.flush();
+        bw.close();
     }
 }
