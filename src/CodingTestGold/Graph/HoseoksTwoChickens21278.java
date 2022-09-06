@@ -1,4 +1,4 @@
-/* Floyd Warshall algorithm
+package CodingTestGold.Graph;/* Floyd Warshall algorithm
 
    - 플로이드-워셜 알고리즘 -
    노드 개수 n개에 맞추어 n*n의 2차원 배열을 만들고
@@ -13,7 +13,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class HoseoksTwoChickens21278 {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
