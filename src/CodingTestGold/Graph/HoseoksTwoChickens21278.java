@@ -1,4 +1,4 @@
-package CodingTestGold.Graph;/* Floyd Warshall algorithm
+/* Floyd Warshall algorithm
 
    - 플로이드-워셜 알고리즘 -
    노드 개수 n개에 맞추어 n*n의 2차원 배열을 만들고
@@ -9,6 +9,8 @@ package CodingTestGold.Graph;/* Floyd Warshall algorithm
    조합을 이용하여 두 노드를 선택하여 합을 구하고
    최솟값을 찾고, 그 최솟값을 갖는 두 노드를 저장
  */
+
+package CodingTestGold.Graph;
 
 import java.io.*;
 import java.util.*;
