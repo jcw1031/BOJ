@@ -8,6 +8,7 @@ public class Main{
         StringTokenizer st;
 
         int t = Integer.parseInt(br.readLine());
+
         while(t-->0){
             st = new StringTokenizer(br.readLine());
 

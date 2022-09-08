@@ -1,34 +1,40 @@
-import java.util.*;
+import java.io.*;
+import java.util.StringTokenizer;
 
-public class Test {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+class Test{
+    public static void main(String[] args) throws IOException{
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
-        // 입력 받기
-        int n = sc.nextInt();
+        int n = Integer.parseInt(br.readLine());
+        int m = Integer.parseInt(br.readLine());
 
-        int[] wine = new int[n];
-        int[] dp = new int[n];
-        for (int i = 0; i < n; i++) {
-            wine[i] = sc.nextInt();
-            if (i == 0) {
-                dp[i] = wine[i];
-                continue;
+        //combination of nCr
+        int[][] dp = new int[n+1][n+1];
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<=i;j++){
+                if(j==0 || j==i){
+                    dp[i][j] = 1;
+                }else{
+                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
+                }
             }
-            int first = 0, second = 0;
-            if (i >= 2) second = wine[i] + dp[i-2];
-            if (i >= 1) first = wine[i] + wine[i-1];
-            if (i >= 3) first += dp[i-3];
-            dp[i] = Math.max(first, second);
-
-            dp[i] = Math.max(dp[i-1], dp[i]);
         }
+        bw.write(dp[n][m]+"\n");
+        bw.flush();
 
-        int answer = 0;
-        for (int dpValue : dp) answer = Math.max(answer, dpValue);
-        System.out.println(answer);
+        //permutation of nPr
+        int[] dp2 = new int[n+1];
+        dp2[0] = 1;
+        for(int i=1;i<=n;i++){
+            dp2[i] = dp2[i-1]*i;
+        }
+        bw.write(dp2[n]+"\n");
+        bw.flush();
 
-        sc.close();
 
+
+        System.out.println("Hello World!");
     }
 }
