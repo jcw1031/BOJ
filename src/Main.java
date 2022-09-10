@@ -5,19 +5,23 @@ public class Main{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int t = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+        int[] input = new int[n];
+        int[] dp = new int[10001];
 
-        while(t-->0){
-            st = new StringTokenizer(br.readLine());
-
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-
-            bw.write(a+b+"\n");
+        for(int i=0;i<n;i++){
+            input[i] = Integer.parseInt(br.readLine());
         }
-        bw.flush();
-        bw.close();
+
+        dp[0] = 1;
+        for(int i=0;i<n;i++){
+            for(int j=input[i];j<=k;j++){
+                dp[j] += dp[j-input[i]];
+            }
+        }
+        System.out.println(dp[k]);
     }
 }
