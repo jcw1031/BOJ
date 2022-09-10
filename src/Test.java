@@ -2,15 +2,11 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 class Test{
-    public static void main(String[] args) throws IOException{
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-
-        int n = Integer.parseInt(br.readLine());
-        int m = Integer.parseInt(br.readLine());
-
-        //combination of nCr
+    public static int n, m;
+    /** combination of nCr
+     * @see <a href="https://naver.com">Naver</a>
+     * @version 1.3.0*/
+    public static void combination(){
         int[][] dp = new int[n+1][n+1];
         for(int i=0;i<=n;i++){
             for(int j=0;j<=i;j++){
@@ -21,8 +17,16 @@ class Test{
                 }
             }
         }
-        bw.write(dp[n][m]+"\n");
-        bw.flush();
+        System.out.println(dp[n][m]);
+    }
+    public static void main(String[] args) throws IOException{
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+
+        n = Integer.parseInt(br.readLine());
+        m = Integer.parseInt(br.readLine());
+
 
         //permutation of nPr
         int[] dp2 = new int[n+1];
@@ -33,6 +37,7 @@ class Test{
         bw.write(dp2[n]+"\n");
         bw.flush();
 
+        combination();
 
 
         System.out.println("Hello World!");
