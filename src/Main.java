@@ -8,25 +8,30 @@ public class Main{
         StringTokenizer st;
 
         int n = Integer.parseInt(br.readLine());
-        int[] dp = new int[n+2];
-        int[][] timeAndCost = new int[2][n+1];
 
-        for(int i=1;i<=n;i++){
-            st = new StringTokenizer(br.readLine());
-            timeAndCost[0][i] = Integer.parseInt(st.nextToken());
-            timeAndCost[1][i] = Integer.parseInt(st.nextToken());
-        }
-
-        for(int i=1;i<=n;i++){
-            int max = 0;
-            if(i+timeAndCost[0][i]-1 <= n){
-                for(int j=1;j<=i;j++){
-                    if(max < dp[j]) max = dp[j];
-                }
-                dp[i+timeAndCost[0][i]] = Math.max(dp[i+timeAndCost[0][i]], max+timeAndCost[1][i]);
+        int tmp = 1;
+        for(int i=n;i>0;i--) {
+            for (int j = 0; j < i - 1; j++) {
+                bw.write(" ");
             }
+            if (i != 1) {
+                for (int k = 0; k < tmp; k++) {
+                    if (k == 0 || k == tmp - 1) {
+                        bw.write('*');
+                    } else {
+                        bw.write(" ");
+                    }
+                }
+            }
+            else{
+                for(int k=0;k<tmp;k++){
+                    bw.write("*");
+                }
+            }
+            tmp += 2;
+            bw.write("\n");
         }
-        Arrays.sort(dp);
-        System.out.println(dp[n+1]);
+        bw.flush();
+        bw.close();
     }
 }
