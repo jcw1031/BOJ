@@ -1,24 +1,58 @@
 import java.io.*;
+import java.util.StringTokenizer;
 
 public class Main{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer st = new StringTokenizer(br.readLine(), "...");
+        String input = br.readLine();
 
-       int n = Integer.parseInt(br.readLine());
+        int count = 0;
+        int index = 0;
+        int start = 0;
+        String result = "";
 
-       int[] dp = new int[n+1];
+        while(index < input.length()){
+            if(input.charAt(index) == 'X'){
+                count++;
+            }
+            else{
+                if(count%2!=0) {
+                    System.out.println(-1);
+                    System.exit(0);
+                }
+                else{
+                    int a = count/4;
+                    count = count%4;
+                    int b = count/2;
+                    for(int i=0;i<a*4;i++){
+                        result+='A';
+                    }
+                    for(int i=0;i<b*2;i++){
+                        result+='B';
+                    }
+                    result+='.';
+                }
+                count = 0;
+            }
+            index++;
+        }
 
-       if(n>=1){
-           dp[1] = 1;
-       }
-       if(n>=2) {
-           dp[2] = 3;
-       }
+        if(count%2!=0){
+            System.out.println(-1);
+            System.exit(0);
+        }
 
-       for(int i=3;i<=n;i++){
-           dp[i] = dp[i-2]*2 + dp[i-1];
-           dp[i] %= 10007;
-       }
-        System.out.println(dp[n]%10007);
+        int a = count/4;
+        count = count%4;
+        int b = count/2;
+        for(int i=0;i<a*4;i++){
+            result+='A';
+        }
+        for(int i=0;i<b*2;i++){
+            result+='B';
+        }
+
+        System.out.println(result);
     }
 }
