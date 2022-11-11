@@ -1,3 +1,5 @@
+package CodingTestSilver.DataStructure;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,7 +38,7 @@ class Student implements Comparable { //점수를 기준으로 정렬하기 위�
     }
 }
 
-public class Main {
+public class BOJ2535 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -56,7 +58,7 @@ public class Main {
             students[i] = new Student(country, id, score); //생성자를 통해 국가, 번호, 점수를 저장
         }
 
-        Arrays.sort(students, new Comparator<Student>() { //람다식을 통해 더 간단하게 표현 가능하지만, 람다식을 공부하지 않았기 때문에 현재와 같이 구현
+        Arrays.sort(students, new Comparator<>() { //람다식을 통해 더 간단하게 표현 가능하지만, 람다식을 공부하지 않았기 때문에 현재와 같이 구현
             @Override
             public int compare(Student s1, Student s2) { //Integer 클래스에 정의된 compare 메소드를 오버라이딩
                 return Integer.compare(s2.getScore(), s1.getScore()); //s2 점수 > s1 점수일 경우 양수 리턴
