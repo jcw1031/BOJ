@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
@@ -34,7 +33,7 @@ class Student implements Comparable { //점수를 기준으로 정렬하기 위�
     @Override
     public int compareTo(Object o) {
         Student student = (Student) o;
-        return getScore().compareTo(student.getScore());
+        return student.getScore().compareTo(getScore());
     }
 }
 
@@ -58,12 +57,14 @@ public class BOJ2535 {
             students[i] = new Student(country, id, score); //생성자를 통해 국가, 번호, 점수를 저장
         }
 
-        Arrays.sort(students, new Comparator<>() { //람다식을 통해 더 간단하게 표현 가능하지만, 람다식을 공부하지 않았기 때문에 현재와 같이 구현
+        /*Arrays.sort(students, new Comparator<>() { //람다식을 통해 더 간단하게 표현 가능하지만, 람다식을 공부하지 않았기 때문에 현재와 같이 구현
             @Override
-            public int compare(Student s1, Student s2) { //Integer 클래스에 정의된 compare 메소드를 오버라이딩
+            public int compare(Student1 s1, Student1 s2) { //Integer 클래스에 정의된 compare 메소드를 오버라이딩
                 return Integer.compare(s2.getScore(), s1.getScore()); //s2 점수 > s1 점수일 경우 양수 리턴
             }
-        });
+        });*/
+
+        Arrays.sort(students);
 
         int count = 0;
         for (int i = 0; i < size; i++) {
