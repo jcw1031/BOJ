@@ -1,24 +1,61 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
-public class EunJeong {
-    public static void main(String[] args) throws IOException {
+class HoseoksMain {
+    static final List<String> WORK = List.of("Re", "Pt", "Cc", "Ea", "Tb", "Cm", "Ex");
+    static Map<String, Integer> workTotalCounts;
+    static int workCount;
+
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String ej = br.readLine();
-        String tmp = "";
-        int size = ej.length();
-        int count =0;
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        workTotalCounts = new HashMap<>();
 
-        for(int i=size-1;i>=0;i--){
-            if(count!=0&& count%3==0){
-                tmp=","+tmp;
-            }
-            tmp= ej.charAt(i)+tmp;
-            count++;
+        String data;
+        while ((data = br.readLine()) != null) {
+            StringTokenizer st = new StringTokenizer(data);
+            String work;
+            countInputWork(st);
         }
-        System.out.println("make_comma("+ej+")");
-        System.out.println(tmp);
+
+        StringBuilder sb = new StringBuilder();
+        for (String sequence : WORK) {
+            int count = workTotalCounts.getOrDefault(sequence, 0);
+            double ratio = calcRatio(workCount, count);
+            sb.append(getResult(sequence, count, ratio));
+        }
+        sb.append("Total ")
+                .append(workCount)
+                .append(" 1.00");
+
+        bw.write(sb.toString());
+        bw.flush();
+        bw.close();
+    }
+
+    private static void countInputWork(final StringTokenizer st) {
+        String work;
+        while (st.hasMoreTokens()) {
+            workCount++;
+            work = st.nextToken();
+            if (WORK.contains(work)) {
+                workTotalCounts.put(work, workTotalCounts.getOrDefault(work, 0) + 1);
+            }
+        }
+    }
+
+    private static String getResult(final String sequence, final int count, final double ratio) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(sequence)
+                .append(" ")
+                .append(count)
+                .append(" ")
+                .append(String.format("%.2f", ratio))
+                .append("\n");
+        return sb.toString();
+    }
+
+    public static double calcRatio(int workCount, int certainCount) {
+        return (double) certainCount / workCount;
     }
 }

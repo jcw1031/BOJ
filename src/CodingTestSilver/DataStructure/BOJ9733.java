@@ -1,9 +1,11 @@
+package CodingTestSilver.DataStructure;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class BOJ9733 {
 
     private static final String[] works = {"Re", "Pt", "Cc", "Ea", "Tb", "Cm", "Ex"};
     private static Map<String, Integer> map = new HashMap<>();
