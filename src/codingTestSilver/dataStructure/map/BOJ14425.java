@@ -1,9 +1,11 @@
+package codingTestSilver.dataStructure.map;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class BOJ14425 {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static StringTokenizer st = null;
     private static final StringBuilder sb = new StringBuilder();
