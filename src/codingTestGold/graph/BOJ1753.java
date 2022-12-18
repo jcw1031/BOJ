@@ -1,3 +1,5 @@
+package codingTestGold.graph;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,7 +28,7 @@ class Node {
     }
 }
 
-public class Main {
+public class BOJ1753 {
 
     static final int INF = 200001;
 
@@ -92,7 +94,7 @@ public class Main {
             Node node = queue.poll();
             int destination = node.getDestination();
             int weight = node.getWeight();
-            if(weight > distance[destination]){
+            if (weight > distance[destination]) {
                 continue;
             }
 
