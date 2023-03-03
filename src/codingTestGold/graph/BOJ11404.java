@@ -1,13 +1,11 @@
+package codingTestGold.graph;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-
-/**
- * BOJ 11404번
- */
-public class Main {
+public class BOJ11404 {
 
     private static final int MAXIMUM = 100_000 * 100;
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

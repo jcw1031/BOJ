@@ -4,10 +4,11 @@ import java.util.*;
 import java.io.*;
 
 public class MazeExploration2178 {
-    public static Queue<int[]> queue = new LinkedList<>();
-    public static int n, m;
-    public static int[][] map;
-    public static int[] tmp = new int[2];
+
+    private static Queue<int[]> queue = new LinkedList<>();
+    private static int n, m;
+    private static int[][] map;
+    private static int[] tmp = new int[2];
 
     public static void bfs(){
         while(!queue.isEmpty()){

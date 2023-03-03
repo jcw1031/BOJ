@@ -1,3 +1,4 @@
+/*
 //Dijkstra algorithm
 
 package codingTestGold.graph;
@@ -85,4 +86,4 @@ public class FindTheMinimumCost1916 {
         visit();
         System.out.println(cheapest[end]);
     }
-}
+}*/
