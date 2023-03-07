@@ -1,44 +1,73 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-
 /**
- * BOJ 11404번
+ * BOJ 1916번
  */
 public class Main {
 
-    private static final int MAXIMUM = 100_000 * 100;
-    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static class Node implements Comparable {
+
+        private final int num;
+        private final int distance;
+
+        public Node(int num, int distance) {
+            this.num = num;
+            this.distance = distance;
+        }
+
+        public int getNum() {
+            return num;
+        }
+
+        public int getDistance() {
+            return distance;
+        }
+
+        @Override
+        public int compareTo(Object o) {
+            Node node = (Node) o;
+            return Integer.compare(this.distance, node.distance);
+        }
+    }
+
+    private static final int MAXIMUM = 100_000 * 1_000;
+    private static final BufferedReader br =
+            new BufferedReader(new InputStreamReader(System.in));
 
     private static int n;
     private static int m;
-    private static int[][] minimumCost;
+    private static int startNode;
+    private static int destinationNode;
+    private static boolean[] isVisited;
+    private static int[] minimumCost;
+    private static List<List<Node>> busRoute;
 
     public static void main(String[] args) throws IOException {
-
         n = Integer.parseInt(br.readLine());
         m = Integer.parseInt(br.readLine());
 
-        minimumCost = new int[n + 1][n + 1];
         init();
         inputData();
 
-        floydWarshallAlgorithm();
+        dijkstraAlgorithm();
 
         display();
     }
 
     private static void init() {
-        for (int i = 1; i < minimumCost.length; i++) {
-            for (int j = 1; j < minimumCost[i].length; j++) {
-                if (i == j) {
-                    minimumCost[i][j] = 0;
-                    continue;
-                }
-                minimumCost[i][j] = MAXIMUM;
-            }
+        isVisited = new boolean[n + 1];
+        minimumCost = new int[n + 1];
+        busRoute = new ArrayList<>();
+
+        for (int i = 0; i <= n; i++) {
+            busRoute.add(new ArrayList<>());
+            minimumCost[i] = MAXIMUM;
         }
     }
 
@@ -46,44 +75,43 @@ public class Main {
         StringTokenizer st;
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
-            int cost = Integer.parseInt(st.nextToken());
-
-            if (minimumCost[start][end] > cost) {
-                minimumCost[start][end] = cost;
-            }
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            int c = Integer.parseInt(st.nextToken());
+            busRoute.get(s).add(new Node(e, c));
         }
+
+        st = new StringTokenizer(br.readLine());
+        startNode = Integer.parseInt(st.nextToken());
+        destinationNode = Integer.parseInt(st.nextToken());
     }
 
-    private static void floydWarshallAlgorithm() {
-        for (int middle = 1; middle <= n; middle++) {
-            for (int start = 1; start <= n; start++) {
-                if (middle == start) {
-                    continue;
+    private static void dijkstraAlgorithm() {
+        PriorityQueue<Node> pq = new PriorityQueue<>();
+        pq.offer(new Node(startNode, 0));
+        minimumCost[startNode] = 0;
+
+        while (!pq.isEmpty()) {
+            int now = pq.poll().getNum();
+
+            if (isVisited[now]) {
+                continue;
+            }
+            isVisited[now] = true;
+
+            List<Node> adjacentNodes = busRoute.get(now);
+            for (Node node : adjacentNodes) {
+                if (minimumCost[node.getNum()] > minimumCost[now] + node.getDistance()) {
+                    minimumCost[node.getNum()] = minimumCost[now] + node.getDistance();
                 }
-                for (int end = 1; end <= n; end++) {
-                    if (middle == end) {
-                        continue;
-                    }
-                    if (minimumCost[start][end] > minimumCost[start][middle] + minimumCost[middle][end]) {
-                        minimumCost[start][end] = minimumCost[start][middle] + minimumCost[middle][end];
-                    }
+                if (!isVisited[node.getNum()]) {
+                    pq.offer(node);
                 }
             }
         }
     }
 
     private static void display() {
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
-                if (minimumCost[i][j] == MAXIMUM) {
-                    System.out.print(0 + " ");
-                    continue;
-                }
-                System.out.print(minimumCost[i][j] + " ");
-            }
-            System.out.println();
-        }
+        System.out.println(minimumCost[destinationNode]);
     }
 }

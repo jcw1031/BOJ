@@ -15,7 +15,6 @@ public class BOJ11404 {
     private static int[][] minimumCost;
 
     public static void main(String[] args) throws IOException {
-
         n = Integer.parseInt(br.readLine());
         m = Integer.parseInt(br.readLine());
 

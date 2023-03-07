@@ -6,15 +6,16 @@ package codingTestGold.graph;
 import java.io.*;
 import java.util.*;
 
-class Node implements Comparable<Node>{
+class Node implements Comparable<Node> {
     public int to, price;
-    public Node(int to, int price){
+
+    public Node(int to, int price) {
         this.to = to;
         this.price = price;
     }
 
     @Override
-    public int compareTo(Node tmp){
+    public int compareTo(Node tmp) {
         return this.price - tmp.price;
     }
 }
@@ -40,7 +41,7 @@ public class FindTheMinimumCost1916 {
                         queue.add(new Node(key, cheapest[key]));
                     }
                 }
-                for(int i = 0; i<cheapest.length; i++){
+                for (int i = 0; i < cheapest.length; i++) {
                 }
             }
         }
@@ -56,7 +57,7 @@ public class FindTheMinimumCost1916 {
         cheapest = new int[n];
         map = new HashMap[n];
 
-        for(int i=0;i<n;i++){
+        for (int i = 0; i < n; i++) {
             map[i] = new HashMap<>();
         }
 
@@ -69,21 +70,22 @@ public class FindTheMinimumCost1916 {
             tmp[1] = Integer.parseInt(st.nextToken());
             tmp[2] = Integer.parseInt(st.nextToken());
 
-            if(map[tmp[0]-1].containsKey(tmp[1]-1)){
-                map[tmp[0]-1].put(tmp[1] - 1, tmp[2] < map[tmp[0]-1].get(tmp[1]-1)?tmp[2]:map[tmp[0]-1].get(tmp[1]-1));
-            }
-            else{
-                map[tmp[0]-1].put(tmp[1] - 1, tmp[2]);
+            if (map[tmp[0] - 1].containsKey(tmp[1] - 1)) {
+                map[tmp[0] - 1].put(tmp[1] - 1, tmp[2] < map[tmp[0] - 1].get(tmp[1] - 1) ?
+                        tmp[2] : map[tmp[0] - 1].get(tmp[1] - 1));
+            } else {
+                map[tmp[0] - 1].put(tmp[1] - 1, tmp[2]);
             }
         }
 
         st = new StringTokenizer(br.readLine());
-        int start = Integer.parseInt(st.nextToken())-1;
-        int end = Integer.parseInt(st.nextToken())-1;
+        int start = Integer.parseInt(st.nextToken()) - 1;
+        int end = Integer.parseInt(st.nextToken()) - 1;
         queue.add(new Node(start, 0));
         cheapest[start] = 0;
 
         visit();
         System.out.println(cheapest[end]);
     }
-}*/
+}
+*/
