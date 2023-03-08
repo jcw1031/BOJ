@@ -3,115 +3,108 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 /**
- * BOJ 1916번
+ * BOJ 17281번
  */
 public class Main {
 
-    static class Node implements Comparable {
-
-        private final int num;
-        private final int distance;
-
-        public Node(int num, int distance) {
-            this.num = num;
-            this.distance = distance;
-        }
-
-        public int getNum() {
-            return num;
-        }
-
-        public int getDistance() {
-            return distance;
-        }
-
-        @Override
-        public int compareTo(Object o) {
-            Node node = (Node) o;
-            return Integer.compare(this.distance, node.distance);
-        }
-    }
-
-    private static final int MAXIMUM = 100_000 * 1_000;
-    private static final BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
-
+    private static final int PLAYER_NUMBER = 9;
     private static int n;
-    private static int m;
-    private static int startNode;
-    private static int destinationNode;
-    private static boolean[] isVisited;
-    private static int[] minimumCost;
-    private static List<List<Node>> busRoute;
+    private static int maxScore = 0;
+    private static int[][] score;
 
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
-        m = Integer.parseInt(br.readLine());
+        score = new int[n][PLAYER_NUMBER];
 
-        init();
-        inputData();
-
-        dijkstraAlgorithm();
-
-        display();
-    }
-
-    private static void init() {
-        isVisited = new boolean[n + 1];
-        minimumCost = new int[n + 1];
-        busRoute = new ArrayList<>();
-
-        for (int i = 0; i <= n; i++) {
-            busRoute.add(new ArrayList<>());
-            minimumCost[i] = MAXIMUM;
-        }
-    }
-
-    private static void inputData() throws IOException {
-        StringTokenizer st;
-        for (int i = 0; i < m; i++) {
-            st = new StringTokenizer(br.readLine());
-            int s = Integer.parseInt(st.nextToken());
-            int e = Integer.parseInt(st.nextToken());
-            int c = Integer.parseInt(st.nextToken());
-            busRoute.get(s).add(new Node(e, c));
-        }
-
-        st = new StringTokenizer(br.readLine());
-        startNode = Integer.parseInt(st.nextToken());
-        destinationNode = Integer.parseInt(st.nextToken());
-    }
-
-    private static void dijkstraAlgorithm() {
-        PriorityQueue<Node> pq = new PriorityQueue<>();
-        pq.offer(new Node(startNode, 0));
-        minimumCost[startNode] = 0;
-
-        while (!pq.isEmpty()) {
-            int now = pq.poll().getNum();
-
-            if (isVisited[now]) {
-                continue;
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < PLAYER_NUMBER; j++) {
+                score[i][j] = Integer.parseInt(st.nextToken());
             }
-            isVisited[now] = true;
+        }
 
-            List<Node> adjacentNodes = busRoute.get(now);
-            for (Node node : adjacentNodes) {
-                if (minimumCost[node.getNum()] > minimumCost[now] + node.getDistance()) {
-                    minimumCost[node.getNum()] = minimumCost[now] + node.getDistance();
-                }
-                if (!isVisited[node.getNum()]) {
-                    pq.offer(node);
-                }
+        boolean[] isVisited = new boolean[PLAYER_NUMBER - 1];
+        List<Integer> sequence = new ArrayList<>();
+        setPlayerSequence(isVisited, sequence, 0);
+
+        System.out.println(maxScore);
+    }
+
+    private static void setPlayerSequence(boolean[] isVisited, List<Integer> sequence, int depth) {
+        if (depth == PLAYER_NUMBER - 1) {
+            int score = play(sequence);
+            if (maxScore < score) {
+                maxScore = score;
+            }
+            return;
+        }
+
+        for (int i = 0; i < PLAYER_NUMBER - 1; i++) {
+            if (!isVisited[i]) {
+                isVisited[i] = true;
+                sequence.add(i + 1);
+                setPlayerSequence(isVisited, sequence, depth + 1);
+                isVisited[i] = false;
             }
         }
     }
 
-    private static void display() {
-        System.out.println(minimumCost[destinationNode]);
+    private static int play(List<Integer> sequence) {
+        sequence.add(3, 0);
+        int score = 0; // seuqence 순서 경우의 점수
+        int turn = 0; // 타자 순서
+
+        for (int i = 0; i < n; i++) {
+            int outCount = 0; // 아웃 수
+            List<Runner> runners = new ArrayList<>(); // 주자들
+            while (true) {
+                if (outCount == 3) {
+                    break;
+                }
+
+                int result = Main.score[i][sequence.get(turn)];
+                if (result == 0) {
+                    outCount++;
+                    turn = ++turn % 9;
+                    continue;
+                }
+
+                score += advanceRunners(result, runners);
+                turn = ++turn % 9;
+            }
+        }
+        return score;
+    }
+
+    private static int advanceRunners(int result, List<Runner> runners) {
+        int score = 0;
+        runners.add(new Runner());
+        for (int i = 0; i < runners.size(); i++) {
+            Runner runner = runners.get(i);
+            runner.advance(result);
+            if (runner.getStatus() >= 4) {
+                score++;
+                runners.remove(runner);
+                i--;
+            }
+        }
+        return score;
+    }
+
+    static class Runner {
+
+        private int status = 0;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void advance(int num) {
+            this.status += num;
+        }
     }
 }
