@@ -1,3 +1,5 @@
+package codingTestSilver.math;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,7 +8,7 @@ import java.util.StringTokenizer;
 /**
  * BOJ 2477번
  */
-public class Main {
+public class BOJ2477 {
 
     private static final int SIZE = 6;
 
