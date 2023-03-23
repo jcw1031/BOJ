@@ -1,7 +1,13 @@
 package codingTestSilver.graph;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class HideAndSeek1697 {
     public static int n, k;
@@ -21,7 +27,7 @@ public class HideAndSeek1697 {
             a[2] = tmp * 2;
 
             for (int i = 0; i < 3; i++) {
-                if (a[i]>=0 && a[i]<=100000 && !visited[a[i]] ) {
+                if (a[i] >= 0 && a[i] <= 100000 && !visited[a[i]]) {
                     count[a[i]] = count[tmp] + 1;
                     queue.add(a[i]);
                     visited[a[i]] = true;

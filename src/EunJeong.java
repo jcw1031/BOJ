@@ -1,5 +1,11 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 class HoseoksMain {
     static final List<String> WORK = List.of("Re", "Pt", "Cc", "Ea", "Tb", "Cm", "Ex");

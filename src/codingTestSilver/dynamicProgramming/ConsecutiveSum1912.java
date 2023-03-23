@@ -1,10 +1,13 @@
 package codingTestSilver.dynamicProgramming;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class ConsecutiveSum1912 {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
@@ -14,16 +17,15 @@ public class ConsecutiveSum1912 {
 
         dp[0] = Integer.parseInt(st.nextToken());
 
-        for(int i=1;i<n;i++){
+        for (int i = 1; i < n; i++) {
             int tmp = Integer.parseInt(st.nextToken());
 
-            if(dp[i-1]+tmp < tmp){
+            if (dp[i - 1] + tmp < tmp) {
                 dp[i] = tmp;
-            }
-            else dp[i] = dp[i-1]+tmp;
+            } else dp[i] = dp[i - 1] + tmp;
         }
         Arrays.sort(dp);
 
-        System.out.println(dp[n-1]);
+        System.out.println(dp[n - 1]);
     }
 }

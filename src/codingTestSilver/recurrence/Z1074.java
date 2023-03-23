@@ -1,28 +1,31 @@
 package codingTestSilver.recurrence;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
 
 public class Z1074 {
     public static int n, r, c;
     public static int count = 0;
 
-    public static void z(int sY, int sX, int eY, int eX){
-        if(sY!=eY && sX!=eX) {
+    public static void z(int sY, int sX, int eY, int eX) {
+        if (sY != eY && sX != eX) {
             if (sY <= r && sX <= c && (sY + eY) / 2 >= r && (sX + eX) / 2 >= c) {
                 z(sY, sX, (sY + eY) / 2, (sX + eX) / 2);
             } else if (sY <= r && (sX + eX) / 2 + 1 <= c && (sY + eY) / 2 >= r && eX >= c) {
                 count += Math.pow(((eY - sY) / 2 + 1), 2) * 1;
-                z(sY, (sX+eX)/2+1, (sY+eY)/2, eX);
+                z(sY, (sX + eX) / 2 + 1, (sY + eY) / 2, eX);
             } else if ((sY + eY) / 2 + 1 <= r && sX <= c && eY >= r && (sX + eX) / 2 >= c) {
                 count += Math.pow(((eY - sY) / 2 + 1), 2) * 2;
-                z((sY+eY)/2+1, sX, eY, (sX+eX)/2);
+                z((sY + eY) / 2 + 1, sX, eY, (sX + eX) / 2);
             } else if ((sY + eY) / 2 + 1 <= r && (sX + eX) / 2 + 1 <= c && eY >= r && eX >= c) {
                 count += Math.pow(((eY - sY) / 2 + 1), 2) * 3;
-                z((sY+eY)/2+1, (sX+eX)/2+1, eY, eX);
+                z((sY + eY) / 2 + 1, (sX + eX) / 2 + 1, eY, eX);
             }
-        }
-        else{
+        } else {
             return;
         }
     }
@@ -37,7 +40,7 @@ public class Z1074 {
         c = Integer.parseInt(st.nextToken());
 
 
-        z(0, 0, n-1, n-1);
+        z(0, 0, n - 1, n - 1);
 
         System.out.println(count);
     }

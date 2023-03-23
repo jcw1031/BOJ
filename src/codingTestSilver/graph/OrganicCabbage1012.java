@@ -1,23 +1,25 @@
 package codingTestSilver.graph;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-public class OrganicCabbage1012{
+public class OrganicCabbage1012 {
     public static int n, m;
     public static int[][] field;
     public static boolean[][] visited;
 
-    public static void dfs(int x, int y){
-        if(x<0 || x>=m || y<0 || y>=n || field[y][x]!=1 || visited[y][x])
+    public static void dfs(int x, int y) {
+        if (x < 0 || x >= m || y < 0 || y >= n || field[y][x] != 1 || visited[y][x])
             return;
 
         visited[y][x] = true;
 
-        dfs(x+1, y);
-        dfs(x-1, y);
-        dfs(x, y+1);
-        dfs(x, y-1);
+        dfs(x + 1, y);
+        dfs(x - 1, y);
+        dfs(x, y + 1);
+        dfs(x, y - 1);
     }
 
     public static void main(String[] args) throws IOException {
@@ -25,7 +27,7 @@ public class OrganicCabbage1012{
         StringTokenizer st;
 
         int t = Integer.parseInt(br.readLine());
-        for(int i=0;i<t;i++){
+        for (int i = 0; i < t; i++) {
             st = new StringTokenizer(br.readLine());
             m = Integer.parseInt(st.nextToken());
             n = Integer.parseInt(st.nextToken());
@@ -33,7 +35,7 @@ public class OrganicCabbage1012{
             field = new int[n][m];
             visited = new boolean[n][m];
 
-            for(int j=0;j<k;j++){
+            for (int j = 0; j < k; j++) {
                 st = new StringTokenizer(br.readLine());
                 int x = Integer.parseInt(st.nextToken());
                 int y = Integer.parseInt(st.nextToken());
@@ -41,9 +43,9 @@ public class OrganicCabbage1012{
             }
 
             int count = 0;
-            for(int j=0;j<n;j++){
-                for(int l=0;l<m;l++){
-                    if(field[j][l] == 1 && !visited[j][l]){
+            for (int j = 0; j < n; j++) {
+                for (int l = 0; l < m; l++) {
+                    if (field[j][l] == 1 && !visited[j][l]) {
                         dfs(l, j);
                         count++;
                     }

@@ -10,7 +10,7 @@ public class BOJ9625 {
 
         int n = Integer.parseInt(br.readLine());
 
-        int[][] dp = new int[2][n+1];
+        int[][] dp = new int[2][n + 1];
 
         //초기화
         dp[0][0] = 1;

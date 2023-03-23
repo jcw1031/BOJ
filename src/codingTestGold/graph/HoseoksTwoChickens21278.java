@@ -12,20 +12,24 @@
 
 package codingTestGold.graph;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
 
 public class HoseoksTwoChickens21278 {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-        int[][] graph = new int[n+1][n+1];
+        int[][] graph = new int[n + 1][n + 1];
 
-        for(int i=0;i<m;i++){
+        for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
@@ -34,42 +38,42 @@ public class HoseoksTwoChickens21278 {
             graph[end][start] = 1;
         }
 
-        for(int i=1;i<=n;i++){
-            for(int j = 1;j<=n;j++){
-                if(graph[i][j] == 0){
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (graph[i][j] == 0) {
                     graph[i][j] = 200;
                 }
             }
         }
 
-        for(int i=1;i<=n;i++){
+        for (int i = 1; i <= n; i++) {
             graph[i][i] = 0;
         }
 
-        for(int via=1;via<=n;via++){
-            for(int start=1;start<=n;start++){
-                for(int end = 1;end<=n;end++){
-                    graph[start][end] = Math.min(graph[start][end], graph[start][via]+graph[via][end]);
+        for (int via = 1; via <= n; via++) {
+            for (int start = 1; start <= n; start++) {
+                for (int end = 1; end <= n; end++) {
+                    graph[start][end] = Math.min(graph[start][end], graph[start][via] + graph[via][end]);
                 }
             }
         }
 
         int min = 10000000;
         int[] index = new int[2];
-        for(int i=1;i<n;i++){
-            for(int j=i+1;j<=n;j++){
-                int tmp =0;
-                for(int k = 1;k<=n;k++){
-                    tmp+= Math.min(graph[k][i]*2, graph[k][j]*2);
+        for (int i = 1; i < n; i++) {
+            for (int j = i + 1; j <= n; j++) {
+                int tmp = 0;
+                for (int k = 1; k <= n; k++) {
+                    tmp += Math.min(graph[k][i] * 2, graph[k][j] * 2);
                 }
-                if(min > tmp){
+                if (min > tmp) {
                     min = tmp;
                     index[0] = i;
                     index[1] = j;
                 }
             }
         }
-        bw.write(index[0]+" "+index[1]+" "+min);
+        bw.write(index[0] + " " + index[1] + " " + min);
 
         bw.flush();
         bw.close();

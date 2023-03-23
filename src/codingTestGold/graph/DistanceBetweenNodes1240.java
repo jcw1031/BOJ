@@ -1,7 +1,16 @@
 package codingTestGold.graph;
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class DistanceBetweenNodes1240 {
     public static ArrayList<HashMap<Integer, Integer>> list = new ArrayList<>();
@@ -12,10 +21,10 @@ public class DistanceBetweenNodes1240 {
     public static void bfs(int start) {
         queue.offer(start);
         visited[start] = true;
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int tmp = queue.poll();
-            for(int key : list.get(tmp).keySet()){
-                if(!visited[key]) {
+            for (int key : list.get(tmp).keySet()) {
+                if (!visited[key]) {
                     queue.offer(key);
                     visited[key] = true;
                     parent[key] = tmp;
@@ -31,12 +40,12 @@ public class DistanceBetweenNodes1240 {
 
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-        parent = new int[n+1];
-        visited = new boolean[n+1];
-        for(int i=0;i<n+1;i++){
+        parent = new int[n + 1];
+        visited = new boolean[n + 1];
+        for (int i = 0; i < n + 1; i++) {
             list.add(new HashMap<>());
         }
-        for(int i=0;i<n-1;i++){
+        for (int i = 0; i < n - 1; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
@@ -48,43 +57,43 @@ public class DistanceBetweenNodes1240 {
 
         bfs(1);
 
-        for(int i=0;i<m;i++){
+        for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
 
             int findA = Integer.parseInt(st.nextToken());
             int findB = Integer.parseInt(st.nextToken());
 
-            HashMap<Integer,Integer> parentListA = new HashMap<>();
-            HashMap<Integer,Integer> parentListB = new HashMap<>();
+            HashMap<Integer, Integer> parentListA = new HashMap<>();
+            HashMap<Integer, Integer> parentListB = new HashMap<>();
 
             int tmp = findA;
             int input = 0;
             parentListA.put(findA, input);
-            while(parent[tmp]!=0){
+            while (parent[tmp] != 0) {
                 input += list.get(tmp).get(parent[tmp]);
                 parentListA.put(parent[tmp], input);
                 tmp = parent[tmp];
-                if(parent[tmp] == 0 ) break;
+                if (parent[tmp] == 0) break;
             }
 
             tmp = findB;
             input = 0;
             parentListB.put(findB, input);
-            while(parent[tmp]!=0){
+            while (parent[tmp] != 0) {
                 input += list.get(tmp).get(parent[tmp]);
                 parentListB.put(parent[tmp], input);
                 tmp = parent[tmp];
-                if(parent[tmp] == 0 ) break;
+                if (parent[tmp] == 0) break;
             }
 
 
             ArrayList<Integer> temp = new ArrayList<>();
-            for(int key : parentListA.keySet()){
-                if(parentListB.containsKey(key)){
-                    temp.add(parentListA.get(key)+parentListB.get(key));
+            for (int key : parentListA.keySet()) {
+                if (parentListB.containsKey(key)) {
+                    temp.add(parentListA.get(key) + parentListB.get(key));
                 }
             }
-            bw.write(Collections.min(temp)+"\n");
+            bw.write(Collections.min(temp) + "\n");
         }
         bw.flush();
         bw.close();

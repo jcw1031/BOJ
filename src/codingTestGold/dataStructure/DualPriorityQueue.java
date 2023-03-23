@@ -1,7 +1,12 @@
 package codingTestGold.dataStructure;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 public class DualPriorityQueue {
     public static void main(String[] args) throws IOException {
@@ -10,7 +15,7 @@ public class DualPriorityQueue {
         StringTokenizer st;
 
         int t = Integer.parseInt(br.readLine());
-        while(t-->0) {
+        while (t-- > 0) {
             //PriorityQueue<Integer> maxPq = new PriorityQueue<>(Collections.reverseOrder());
             //PriorityQueue<Integer> minPq = new PriorityQueue<>();
             TreeMap<Integer, Integer> tm = new TreeMap<>();
@@ -25,22 +30,21 @@ public class DualPriorityQueue {
                         int x = Integer.parseInt(st.nextToken());
                         //maxPq.add(x);
                         //minPq.add(x);
-                        tm.put(x, tm.getOrDefault(x, 0)+1);
+                        tm.put(x, tm.getOrDefault(x, 0) + 1);
                         break;
                     }
-                    case "D" : {
-                        if(!tm.isEmpty()) {
+                    case "D": {
+                        if (!tm.isEmpty()) {
                             int x = Integer.parseInt(st.nextToken());
                             if (x > 0) {
                                 //minPq.remove(maxPq.poll());
-                                tm.put(tm.lastKey(), tm.get(tm.lastKey())-1);
-                                if(tm.get(tm.lastKey()) == 0)
+                                tm.put(tm.lastKey(), tm.get(tm.lastKey()) - 1);
+                                if (tm.get(tm.lastKey()) == 0)
                                     tm.remove(tm.lastKey());
-                            }
-                            else {
+                            } else {
                                 //maxPq.remove(minPq.poll());
-                                tm.put(tm.firstKey(), tm.get(tm.firstKey())-1);
-                                if(tm.get(tm.firstKey()) == 0)
+                                tm.put(tm.firstKey(), tm.get(tm.firstKey()) - 1);
+                                if (tm.get(tm.firstKey()) == 0)
                                     tm.remove(tm.firstKey());
                             }
                         }
@@ -48,10 +52,10 @@ public class DualPriorityQueue {
                     }
                 }
             }
-            if(tm.isEmpty()) bw.write("EMPTY\n");
-            else{
+            if (tm.isEmpty()) bw.write("EMPTY\n");
+            else {
                 //bw.write(maxPq.poll()+" "+minPq.poll()+"\n");
-                bw.write(tm.lastKey()+" "+tm.firstKey()+"\n");
+                bw.write(tm.lastKey() + " " + tm.firstKey() + "\n");
             }
         }
         bw.flush();

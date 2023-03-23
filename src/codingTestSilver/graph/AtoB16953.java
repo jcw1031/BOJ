@@ -1,18 +1,22 @@
 package codingTestSilver.graph;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class AtoB16953 {
     public static long n, m;
     public static Queue<Long> queue = new LinkedList<>();
     public static int count = 0;
 
-    public static void bfs(){
-        while(!queue.isEmpty()) {
+    public static void bfs() {
+        while (!queue.isEmpty()) {
             int tmp = queue.size();
             count++;
-            for(int i=0;i<tmp;i++) {
+            for (int i = 0; i < tmp; i++) {
                 long tt = queue.poll();
 
                 if (tt == m) {

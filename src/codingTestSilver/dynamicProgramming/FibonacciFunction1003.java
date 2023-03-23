@@ -1,7 +1,11 @@
 package codingTestSilver.dynamicProgramming;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.StringTokenizer;
 
 public class FibonacciFunction1003 {
     static HashMap<Integer, Integer> mapZero = new LinkedHashMap<>();
@@ -10,15 +14,15 @@ public class FibonacciFunction1003 {
     static int countZero;
     static int countOne;
 
-    public static int fibonacciZero(int n){
-        if(mapZero.containsKey(n)) return mapZero.get(n);
-        mapZero.put(n, fibonacciZero(n-1)+fibonacciZero(n-2));
+    public static int fibonacciZero(int n) {
+        if (mapZero.containsKey(n)) return mapZero.get(n);
+        mapZero.put(n, fibonacciZero(n - 1) + fibonacciZero(n - 2));
         return mapZero.get(n);
     }
 
-    public static int fibonacciOne(int n){
-        if(mapOne.containsKey(n)) return mapOne.get(n);
-        mapOne.put(n, fibonacciOne(n-1)+fibonacciOne(n-2));
+    public static int fibonacciOne(int n) {
+        if (mapOne.containsKey(n)) return mapOne.get(n);
+        mapOne.put(n, fibonacciOne(n - 1) + fibonacciOne(n - 2));
         return mapOne.get(n);
     }
 
@@ -32,11 +36,11 @@ public class FibonacciFunction1003 {
         mapOne.put(0, 0);
         mapOne.put(1, 1);
 
-        for(int i=0;i<t;i++){
+        for (int i = 0; i < t; i++) {
             countZero = 0;
             countOne = 0;
-            in=Integer.parseInt(br.readLine());
-            System.out.println(fibonacciZero(in)+" "+fibonacciOne(in));
+            in = Integer.parseInt(br.readLine());
+            System.out.println(fibonacciZero(in) + " " + fibonacciOne(in));
         }
     }
 }

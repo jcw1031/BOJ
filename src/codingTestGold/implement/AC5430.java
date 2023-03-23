@@ -1,7 +1,13 @@
 package codingTestGold.implement;
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
 
 public class AC5430 {
     public static void main(String[] args) throws IOException {
@@ -40,7 +46,7 @@ public class AC5430 {
                             break;
                         }
                         case 'D': {
-                            if(list.size()==0) throw new Exception();
+                            if (list.size() == 0) throw new Exception();
                             list.remove(pointer);
                             if (pointer != 0) {
                                 pointer--;
@@ -53,10 +59,10 @@ public class AC5430 {
                     Collections.reverse(list);
                 }
                 bw.write("[");
-                for(int i=0;i<list.size()-1;i++){
-                    bw.write(list.get(i)+",");
+                for (int i = 0; i < list.size() - 1; i++) {
+                    bw.write(list.get(i) + ",");
                 }
-                if(list.size()!=0) bw.write(""+list.get(list.size()-1));
+                if (list.size() != 0) bw.write("" + list.get(list.size() - 1));
                 bw.write("]\n");
                 bw.flush();
             } catch (Exception e) {

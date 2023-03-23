@@ -1,18 +1,26 @@
 package codingTestGold.graph;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
-class Position1 implements Comparable<Position>{
+class Position1 implements Comparable<Position> {
     public int num;
     public int time;
-    public Position1(int num, int time){
+
+    public Position1(int num, int time) {
         this.num = num;
         this.time = time;
     }
 
     @Override
-    public int compareTo(Position o){
+    public int compareTo(Position o) {
         return this.time - o.time;
     }
 }
@@ -29,22 +37,21 @@ public class HideAndSeekSecond12851 {
             Position1 tmp = queue.poll();
             visited[tmp.num] = true;
             if (tmp.num == k) {
-                if(map.containsKey(tmp.time)){
-                    map.put(tmp.time, map.get(tmp.time)+1);
-                }
-                else{
+                if (map.containsKey(tmp.time)) {
+                    map.put(tmp.time, map.get(tmp.time) + 1);
+                } else {
                     map.put(tmp.time, 1);
                 }
                 time = Math.min(time, tmp.time);
             }
 
             int[] a = new int[3];
-            a[0] = tmp.num *2;
+            a[0] = tmp.num * 2;
             a[1] = tmp.num + 1;
-            a[2] = tmp.num -1;
+            a[2] = tmp.num - 1;
 
             for (int i = 0; i < 3; i++) {
-                if (a[i]>=0 && a[i]<=100000 && !visited[a[i]]) {
+                if (a[i] >= 0 && a[i] <= 100000 && !visited[a[i]]) {
                     queue.add(new Position1(a[i], tmp.time + 1));
                 }
             }
@@ -63,6 +70,6 @@ public class HideAndSeekSecond12851 {
         visited[n] = true;
         bfs();
 
-        System.out.println(time+"\n"+map.get(time));
+        System.out.println(time + "\n" + map.get(time));
     }
 }

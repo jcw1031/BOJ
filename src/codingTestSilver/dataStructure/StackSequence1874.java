@@ -1,7 +1,9 @@
 package codingTestSilver.dataStructure;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Stack;
 
 public class StackSequence1874 {
     public static void main(String[] args) throws IOException {
@@ -18,21 +20,20 @@ public class StackSequence1874 {
         int i = 0;
         int tmp = 1;
 
-        while(true){
-            if(a[i]>=tmp){
-                for(;tmp<=a[i];tmp++){
+        while (true) {
+            if (a[i] >= tmp) {
+                for (; tmp <= a[i]; tmp++) {
                     stack.push(tmp);
                     sb.append('+').append('\n');
                 }
-            }
-            else if(stack.peek()!=a[i]){
+            } else if (stack.peek() != a[i]) {
                 System.out.println("NO");
                 System.exit(0);
             }
             i++;
             stack.pop();
             sb.append('-').append('\n');
-            if(i==n) break;
+            if (i == n) break;
         }
         System.out.println(sb.toString());
     }

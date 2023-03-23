@@ -1,5 +1,6 @@
 package codingTestBronze;
-import java.util.*;
+
+import java.util.Scanner;
 
 public class PlusCycle {
     public static void main(String[] args) {
@@ -8,16 +9,16 @@ public class PlusCycle {
         int input = s.nextInt();
         int first = input;
         int tmp;
-        int count=0;
+        int count = 0;
 
-        do{
-            tmp=0;
-            tmp+=input/10;
-            tmp+=input%10;
-            tmp=(input%10)*10 + tmp%10;
-            input=tmp;
+        do {
+            tmp = 0;
+            tmp += input / 10;
+            tmp += input % 10;
+            tmp = (input % 10) * 10 + tmp % 10;
+            input = tmp;
             count++;
-        }while(first!=input);
+        } while (first != input);
         System.out.println(count);
     }
 }

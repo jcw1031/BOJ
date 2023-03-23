@@ -14,24 +14,24 @@ public class LongestSequence11053 {
         int[] a = new int[n];
         int[] count = new int[n];
         st = new StringTokenizer(br.readLine());
-        for(int i=0;i<n;i++){
-            a[i]=Integer.parseInt(st.nextToken());
+        for (int i = 0; i < n; i++) {
+            a[i] = Integer.parseInt(st.nextToken());
         }
         int max;
         boolean flag;
-        for(int i=0;i<n-1;i++){
+        for (int i = 0; i < n - 1; i++) {
             max = 0;
             flag = false;
-            for(int j=0;j<i+1;j++){
-                if(a[i+1]>a[j]){
-                    if(count[max]<count[j]) max=j;
+            for (int j = 0; j < i + 1; j++) {
+                if (a[i + 1] > a[j]) {
+                    if (count[max] < count[j]) max = j;
                     flag = true;
                 }
             }
-            if(flag==true)
-                count[i+1]=count[max]+1;
+            if (flag == true)
+                count[i + 1] = count[max] + 1;
         }
         Arrays.sort(count);
-        System.out.println(count[n-1]+1);
+        System.out.println(count[n - 1] + 1);
     }
 }

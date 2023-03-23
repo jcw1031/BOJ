@@ -1,7 +1,14 @@
 package codingTestSilver.graph;
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class FindParentOfTree11725 {
     public static ArrayList<ArrayList<Integer>> list = new ArrayList<>();
@@ -10,15 +17,15 @@ public class FindParentOfTree11725 {
     public static boolean[] visited;
     public static int[] parent;
 
-    public static void bfs(){
+    public static void bfs() {
         queue.offer(1);
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int tmp = queue.poll();
             visited[tmp] = true;
-            for(int i=0;i<list.get(tmp).size();i++){
+            for (int i = 0; i < list.get(tmp).size(); i++) {
                 int tmp2 = list.get(tmp).get(i);
-                if(!visited[tmp2] && !queue.contains(tmp2) ){
+                if (!visited[tmp2] && !queue.contains(tmp2)) {
                     //parent.put(tmp2, tmp);
                     parent[tmp2] = tmp;
                     queue.offer(tmp2);
@@ -27,11 +34,11 @@ public class FindParentOfTree11725 {
         }
     }
 
-    public static void dfs(int start){
+    public static void dfs(int start) {
         visited[start] = true;
-        for(int i=0;i<list.get(start).size();i++){
+        for (int i = 0; i < list.get(start).size(); i++) {
             int tmp = list.get(start).get(i);
-            if(!visited[tmp]){
+            if (!visited[tmp]) {
                 parent[tmp] = start;
                 dfs(tmp);
             }
@@ -44,13 +51,13 @@ public class FindParentOfTree11725 {
         StringTokenizer st;
 
         int n = Integer.parseInt(br.readLine());
-        parent = new int[n+1];
-        visited = new boolean[n+1];
-        for(int i=0;i<n+1;i++){
+        parent = new int[n + 1];
+        visited = new boolean[n + 1];
+        for (int i = 0; i < n + 1; i++) {
             list.add(new ArrayList<>());
         }
 
-        for(int i=0;i<n-1;i++){
+        for (int i = 0; i < n - 1; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
@@ -62,9 +69,9 @@ public class FindParentOfTree11725 {
         //bfs();
         dfs(1);
 
-        for(int i=2;i<=n;i++){
+        for (int i = 2; i <= n; i++) {
             //System.out.println(parent.get(i));
-            bw.write(parent[i]+"\n");
+            bw.write(parent[i] + "\n");
         }
         bw.flush();
         bw.close();

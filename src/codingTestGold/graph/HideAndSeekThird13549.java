@@ -1,18 +1,25 @@
 package codingTestGold.graph;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
-class Position implements Comparable<Position>{
+class Position implements Comparable<Position> {
     public int num;
     public int time;
-    public Position(int num, int time){
+
+    public Position(int num, int time) {
         this.num = num;
         this.time = time;
     }
 
     @Override
-    public int compareTo(Position o){
+    public int compareTo(Position o) {
         return this.time - o.time;
     }
 }
@@ -33,16 +40,15 @@ public class HideAndSeekThird13549 {
             }
 
             int[] a = new int[3];
-            a[0] = tmp.num *2;
+            a[0] = tmp.num * 2;
             a[1] = tmp.num + 1;
-            a[2] = tmp.num -1;
+            a[2] = tmp.num - 1;
 
             for (int i = 0; i < 3; i++) {
-                if (a[i]>=0 && a[i]<=100000 && !visited[a[i]]) {
-                    if(i == 1 || i == 2){
-                        queue.add(new Position(a[i], tmp.time+1));
-                    }
-                    else{
+                if (a[i] >= 0 && a[i] <= 100000 && !visited[a[i]]) {
+                    if (i == 1 || i == 2) {
+                        queue.add(new Position(a[i], tmp.time + 1));
+                    } else {
                         queue.add(new Position(a[i], tmp.time));
                     }
                 }

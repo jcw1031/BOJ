@@ -1,7 +1,9 @@
 package codingTestSilver.recurrence;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class MakingColoredPaper {
     public static int blue = 0;
@@ -9,48 +11,47 @@ public class MakingColoredPaper {
     public static int[][] arr;
     public static double tmp = 0.5;
     public static int n;
-    public static void makePaper(int startX, int startY, int endX, int endY){
 
-        tmp*=2;
+    public static void makePaper(int startX, int startY, int endX, int endY) {
 
-        if((int)tmp == n){
-            if(arr[startY][startX] == 0) white++;
+        tmp *= 2;
+
+        if ((int) tmp == n) {
+            if (arr[startY][startX] == 0) white++;
             else blue++;
-            tmp/=2;
+            tmp /= 2;
             return;
         }
 
-        if(arr[startY][startX] == 0){
-            for(int i=startY;i<=endY;i++){
-                for(int j=startX;j<=endX;j++){
-                    if(arr[i][j] == 1){
-                        makePaper(startX, startY, (startX+endX)/2, (startY+endY)/2);
-                        makePaper((startX+endX)/2+1, startY, endX, (startY+endY)/2);
-                        makePaper(startX, (startY+endY)/2+1, (startX+endX)/2, endY);
-                        makePaper((startX+endX)/2+1, (startY+endY)/2+1, endX, endY);
-                        tmp/=2;
+        if (arr[startY][startX] == 0) {
+            for (int i = startY; i <= endY; i++) {
+                for (int j = startX; j <= endX; j++) {
+                    if (arr[i][j] == 1) {
+                        makePaper(startX, startY, (startX + endX) / 2, (startY + endY) / 2);
+                        makePaper((startX + endX) / 2 + 1, startY, endX, (startY + endY) / 2);
+                        makePaper(startX, (startY + endY) / 2 + 1, (startX + endX) / 2, endY);
+                        makePaper((startX + endX) / 2 + 1, (startY + endY) / 2 + 1, endX, endY);
+                        tmp /= 2;
                         return;
                     }
                 }
             }
-            tmp/=2;
+            tmp /= 2;
             white++;
-        }
-
-        else{
-            for(int i=startY;i<=endY;i++){
-                for(int j=startX;j<=endX;j++){
-                    if(arr[i][j] == 0){
-                        makePaper(startX, startY, (startX+endX)/2, (startY+endY)/2);
-                        makePaper((startX+endX)/2+1, startY, endX, (startY+endY)/2);
-                        makePaper(startX, (startY+endY)/2+1, (startX+endX)/2, endY);
-                        makePaper((startX+endX)/2+1, (startY+endY)/2+1, endX, endY);
-                        tmp/=2;
+        } else {
+            for (int i = startY; i <= endY; i++) {
+                for (int j = startX; j <= endX; j++) {
+                    if (arr[i][j] == 0) {
+                        makePaper(startX, startY, (startX + endX) / 2, (startY + endY) / 2);
+                        makePaper((startX + endX) / 2 + 1, startY, endX, (startY + endY) / 2);
+                        makePaper(startX, (startY + endY) / 2 + 1, (startX + endX) / 2, endY);
+                        makePaper((startX + endX) / 2 + 1, (startY + endY) / 2 + 1, endX, endY);
+                        tmp /= 2;
                         return;
                     }
                 }
             }
-            tmp/=2;
+            tmp /= 2;
             blue++;
         }
     }
@@ -62,14 +63,14 @@ public class MakingColoredPaper {
         n = Integer.parseInt(br.readLine());
         arr = new int[n][n];
 
-        for(int i=0;i<n;i++){
+        for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
-            for(int j=0;j<n;j++){
+            for (int j = 0; j < n; j++) {
                 arr[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
-        makePaper(0, 0, n-1, n-1);
+        makePaper(0, 0, n - 1, n - 1);
 
         System.out.println(white);
         System.out.println(blue);

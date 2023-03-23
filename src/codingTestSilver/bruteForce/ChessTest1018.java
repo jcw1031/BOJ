@@ -1,7 +1,10 @@
 package codingTestSilver.bruteForce;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.StringTokenizer;
 
 public class ChessTest1018 {
     public static void main(String[] args) throws IOException {
@@ -31,11 +34,11 @@ public class ChessTest1018 {
         HashMap<Boolean, Character> map = new HashMap<>();
         map.put(true, 'B');
         map.put(false, 'W');
-        int minRowB=0;
-        int minColumnB=0;
-        int minRowW=0;
-        int minColumnW=0;
-        int min =100000;
+        int minRowB = 0;
+        int minColumnB = 0;
+        int minRowW = 0;
+        int minColumnW = 0;
+        int min = 100000;
 
         for (int i = 0; i <= n - 8; i++) {
             for (int j = 0; j <= m - 8; j++) {
@@ -48,10 +51,10 @@ public class ChessTest1018 {
                             flag = !flag;
                     }
                 }
-                if(min>countB[i][j]){
-                    min=countB[i][j];
-                    minRowB=i;
-                    minColumnB=j;
+                if (min > countB[i][j]) {
+                    min = countB[i][j];
+                    minRowB = i;
+                    minColumnB = j;
                 }
             }
         }
@@ -70,13 +73,13 @@ public class ChessTest1018 {
                             flag = !flag;
                     }
                 }
-                if(min>countW[i][j]){
-                    min=countW[i][j];
-                    minRowW=i;
-                    minColumnW=j;
+                if (min > countW[i][j]) {
+                    min = countW[i][j];
+                    minRowW = i;
+                    minColumnW = j;
                 }
             }
         }
-        System.out.println(countB[minRowB][minColumnB]>countW[minRowW][minColumnW]?countW[minRowW][minColumnW]:countB[minRowB][minColumnB]);
+        System.out.println(countB[minRowB][minColumnB] > countW[minRowW][minColumnW] ? countW[minRowW][minColumnW] : countB[minRowB][minColumnB]);
     }
 }

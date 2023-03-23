@@ -1,7 +1,9 @@
 package codingTestGold.graph;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Iceberg2573 {
     public static int[][] iceberg;
@@ -11,61 +13,61 @@ public class Iceberg2573 {
     public static int count = 0;
     public static int n, m;
 
-    public static boolean dfs(int y, int x){
-        if(x<0 || x>=m || y<0 || y>=n){
+    public static boolean dfs(int y, int x) {
+        if (x < 0 || x >= m || y < 0 || y >= n) {
             return false;
         }
-        if(iceberg[y][x] !=0 && !visited[y][x]){
+        if (iceberg[y][x] != 0 && !visited[y][x]) {
             visited[y][x] = true;
 
-            if(dfs(y, x-1)) tmp[y][x]--;
-            if(dfs(y-1, x)) tmp[y][x]--;
-            if(dfs(y+1, x)) tmp[y][x]--;
-            if(dfs(y, x+1)) tmp[y][x]--;
+            if (dfs(y, x - 1)) tmp[y][x]--;
+            if (dfs(y - 1, x)) tmp[y][x]--;
+            if (dfs(y + 1, x)) tmp[y][x]--;
+            if (dfs(y, x + 1)) tmp[y][x]--;
             return false;
         }
-        if(iceberg[y][x] == 0)
+        if (iceberg[y][x] == 0)
             return true;
         return false;
     }
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         iceberg = new int[n][m];
-        for(int i=0;i<n;i++){
+        for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
-            for(int j=0;j<m;j++){
+            for (int j = 0; j < m; j++) {
                 iceberg[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
-        while(true){
+        while (true) {
             icebergCount = 0;
             visited = new boolean[n][m];
             tmp = new int[n][m];
 
-            for(int i=0;i<n;i++){
-                for(int j=0;j<m;j++){
-                    if(iceberg[i][j] !=0 && !visited[i][j]){
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (iceberg[i][j] != 0 && !visited[i][j]) {
                         icebergCount++;
                         dfs(i, j);
                     }
                 }
             }
-            if(icebergCount == 0) {
+            if (icebergCount == 0) {
                 System.out.println(0);
                 System.exit(0);
             }
-            if(icebergCount >= 2) break;
+            if (icebergCount >= 2) break;
 
-            for(int i=0;i<n;i++){
-                for(int j=0;j<m;j++){
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
                     iceberg[i][j] += tmp[i][j];
-                    if(iceberg[i][j]<0) iceberg[i][j] = 0;
+                    if (iceberg[i][j] < 0) iceberg[i][j] = 0;
                 }
             }
 

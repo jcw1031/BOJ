@@ -42,8 +42,6 @@ public class BOJ1916 {
         int destinationNode = Integer.parseInt(st.nextToken());
 
 
-
-
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.offer(new Node(startNode, 0));
         minimumCost[startNode] = 0;

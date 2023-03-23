@@ -3,7 +3,9 @@ package codingTestGold.graph;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Tomato7569 {
     public static int n, m, h;
@@ -19,13 +21,13 @@ public class Tomato7569 {
             set(tmp[0], tmp[1] - 1, tmp[2]);
             set(tmp[0] + 1, tmp[1], tmp[2]);
             set(tmp[0] - 1, tmp[1], tmp[2]);
-            set(tmp[0], tmp[1], tmp[2]+1);
-            set(tmp[0], tmp[1], tmp[2]-1);
+            set(tmp[0], tmp[1], tmp[2] + 1);
+            set(tmp[0], tmp[1], tmp[2] - 1);
         }
     }
 
     public static boolean set(int z, int y, int x) {
-        if (x < 0 || x >= m || y < 0 || y >= n || z<0 || z>=h) {
+        if (x < 0 || x >= m || y < 0 || y >= n || z < 0 || z >= h) {
             return false;
         }
         if (tomato[z][y][x] == 0) {
@@ -75,7 +77,7 @@ public class Tomato7569 {
         }
 
         if (end) {
-            System.out.println(result-1);
+            System.out.println(result - 1);
         } else {
             System.out.println(-1);
         }

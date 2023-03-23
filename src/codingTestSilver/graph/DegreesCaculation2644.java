@@ -1,40 +1,45 @@
 package codingTestSilver.graph;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.StringTokenizer;
 
 public class DegreesCaculation2644 {
     public static ArrayList<ArrayList<Integer>> list = new ArrayList<>();
     public static HashMap<Integer, Integer> distanceA = new HashMap<>();
     public static HashMap<Integer, Integer> distanceB = new HashMap<>();
 
-    public static int dfs(int a, int b){
+    public static int dfs(int a, int b) {
         distanceA.put(a, 0);
         int tt = a;
         int tmp = a;
-        while(true){
-            if(list.get(tmp).isEmpty()) break;
+        while (true) {
+            if (list.get(tmp).isEmpty()) break;
             tmp = list.get(tmp).get(0);
-            distanceA.put(tmp, distanceA.get(tt)+1);
+            distanceA.put(tmp, distanceA.get(tt) + 1);
             tt = tmp;
         }
         distanceB.put(b, 0);
         tt = b;
         tmp = b;
-        while(true){
-            if(list.get(tmp).isEmpty()) break;
+        while (true) {
+            if (list.get(tmp).isEmpty()) break;
             tmp = list.get(tmp).get(0);
-            distanceB.put(tmp, distanceB.get(tt)+1);
+            distanceB.put(tmp, distanceB.get(tt) + 1);
             tt = tmp;
         }
 
         ArrayList<Integer> temp = new ArrayList<>();
-        for(int key : distanceA.keySet()){
-            if(distanceB.containsKey(key)){
-                temp.add(distanceA.get(key)+distanceB.get(key));
+        for (int key : distanceA.keySet()) {
+            if (distanceB.containsKey(key)) {
+                temp.add(distanceA.get(key) + distanceB.get(key));
             }
         }
-        if(temp.isEmpty()) return -1;
+        if (temp.isEmpty()) return -1;
         int min = Collections.min(temp);
         return min;
     }

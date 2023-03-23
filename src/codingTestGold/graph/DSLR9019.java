@@ -1,7 +1,13 @@
 package codingTestGold.graph;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class DSLR9019 {
     public static Queue<String> queue;
@@ -10,13 +16,13 @@ public class DSLR9019 {
     public static String[] result;
 
     public static void bfs() {
-        while(!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             String tmp = queue.poll();
 
-            if(tmp.length()<4){
+            if (tmp.length() < 4) {
                 int ttt = tmp.length();
-                for(int i=0;i<4-ttt;i++){
-                    tmp="0"+tmp;
+                for (int i = 0; i < 4 - ttt; i++) {
+                    tmp = "0" + tmp;
                 }
             }
 
@@ -39,32 +45,33 @@ public class DSLR9019 {
             sub = tmp.charAt(3);
             temp[3] = sub + tmp.substring(0, 3);
 
-            if(!visited[Integer.parseInt(temp[0])]){
-                result[Integer.parseInt(temp[0])] = result[Integer.parseInt(tmp)]+ "D";
-                if(Integer.parseInt(temp[0]) == b) return;
+            if (!visited[Integer.parseInt(temp[0])]) {
+                result[Integer.parseInt(temp[0])] = result[Integer.parseInt(tmp)] + "D";
+                if (Integer.parseInt(temp[0]) == b) return;
                 queue.add(temp[0]);
                 visited[Integer.parseInt(temp[0])] = true;
             }
-            if(!visited[Integer.parseInt(temp[1])]){
-                result[Integer.parseInt(temp[1])] = result[Integer.parseInt(tmp)]+"S";
-                if(Integer.parseInt(temp[1]) == b) return;
+            if (!visited[Integer.parseInt(temp[1])]) {
+                result[Integer.parseInt(temp[1])] = result[Integer.parseInt(tmp)] + "S";
+                if (Integer.parseInt(temp[1]) == b) return;
                 queue.add(temp[1]);
                 visited[Integer.parseInt(temp[1])] = true;
             }
-            if(!visited[Integer.parseInt(temp[2])]){
-                result[Integer.parseInt(temp[2])] = result[Integer.parseInt(tmp)]+"L";
-                if(Integer.parseInt(temp[2]) == b) return;
+            if (!visited[Integer.parseInt(temp[2])]) {
+                result[Integer.parseInt(temp[2])] = result[Integer.parseInt(tmp)] + "L";
+                if (Integer.parseInt(temp[2]) == b) return;
                 queue.add(temp[2]);
                 visited[Integer.parseInt(temp[2])] = true;
             }
-            if(!visited[Integer.parseInt(temp[3])]){
-                result[Integer.parseInt(temp[3])] = result[Integer.parseInt(tmp)]+"R";
-                if(Integer.parseInt(temp[3]) == b) return;
+            if (!visited[Integer.parseInt(temp[3])]) {
+                result[Integer.parseInt(temp[3])] = result[Integer.parseInt(tmp)] + "R";
+                if (Integer.parseInt(temp[3]) == b) return;
                 queue.add(temp[3]);
                 visited[Integer.parseInt(temp[3])] = true;
             }
         }
     }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -72,7 +79,7 @@ public class DSLR9019 {
 
         int t = Integer.parseInt(br.readLine());
 
-        while(t-->0){
+        while (t-- > 0) {
             result = new String[10000];
             visited = new boolean[10000];
             queue = new LinkedList<>();
@@ -86,7 +93,7 @@ public class DSLR9019 {
             result[Integer.parseInt(a)] = "";
             bfs();
 
-            bw.write(result[b]+"\n");
+            bw.write(result[b] + "\n");
         }
         bw.flush();
         bw.close();

@@ -1,7 +1,9 @@
 package codingTestGold.backTracking;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class NQueen9663 {
     public static int n;
@@ -19,12 +21,13 @@ public class NQueen9663 {
             for (j = 0; j < depth; j++) {
                 if (check[j] == i || Math.abs(depth - j) == Math.abs(i - check[j])) break;
             }
-            if(j == depth){
+            if (j == depth) {
                 check[depth] = i;
                 backtracking(depth + 1);
             }
         }
     }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;

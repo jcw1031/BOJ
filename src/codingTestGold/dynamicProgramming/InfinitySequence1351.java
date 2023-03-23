@@ -1,7 +1,10 @@
 package codingTestGold.dynamicProgramming;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.StringTokenizer;
 
 public class InfinitySequence1351 {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -10,9 +13,10 @@ public class InfinitySequence1351 {
     static long q;
 
     static HashMap<Long, Long> map = new HashMap<>();
+
     public static long pq(long i) throws IOException {
-        if(map.containsKey(i)) return map.get(i);
-        map.put(i, pq(i/p)+pq(i/q));
+        if (map.containsKey(i)) return map.get(i);
+        map.put(i, pq(i / p) + pq(i / q));
         return map.get(i);
     }
 
@@ -23,9 +27,8 @@ public class InfinitySequence1351 {
         p = Long.parseLong(st.nextToken());
         q = Long.parseLong(st.nextToken());
 
-        map.put((long)0, (long)1);
+        map.put((long) 0, (long) 1);
         System.out.println(pq(n));
-
 
 
         //System.out.println(array(n, p, q));

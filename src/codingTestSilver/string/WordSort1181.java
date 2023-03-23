@@ -1,6 +1,8 @@
 package codingTestSilver.string;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class WordSort1181 {
     public static void main(String[] args) throws IOException {
@@ -45,12 +47,12 @@ public class WordSort1181 {
                 }
             }
             System.out.print(sb);
-        }
-        else{
+        } else {
             System.out.println(input[0]);
         }
     }
-    public static int compareString(String a, String b){
+
+    public static int compareString(String a, String b) {
         int result = a.compareTo(b);
         return result;
     }

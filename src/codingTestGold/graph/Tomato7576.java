@@ -3,7 +3,9 @@ package codingTestGold.graph;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Tomato7576 {
     public static int h, w;
