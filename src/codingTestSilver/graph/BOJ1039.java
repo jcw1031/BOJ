@@ -1,3 +1,5 @@
+package codingTestSilver.graph;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,7 +10,7 @@ import java.util.StringTokenizer;
 /**
  * BOJ 1039번
  */
-public class Main {
+public class BOJ1039 {
 
     private static final Queue<int[]> queue = new LinkedList<>();
     private static boolean[][] isVisited;
