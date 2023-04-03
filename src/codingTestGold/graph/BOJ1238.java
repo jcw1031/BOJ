@@ -1,3 +1,5 @@
+package codingTestGold.graph;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +11,7 @@ import java.util.StringTokenizer;
 /**
  * BOJ 1238번
  */
-public class Main {
+public class BOJ1238 {
 
     private static final int MAXIMUM = 1_000 * 100 * 2;
 
