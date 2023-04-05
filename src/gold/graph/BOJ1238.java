@@ -15,10 +15,6 @@ public class BOJ1238 {
 
     private static final int MAXIMUM = 1_000 * 100 * 2;
 
-    private static ArrayList<Node>[] routes;
-    private static int[] minimumTime;
-    private static int[] returnMinimumTime;
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer stringTokenizer = new StringTokenizer(br.readLine());
@@ -27,11 +23,18 @@ public class BOJ1238 {
         int roadsNumber = Integer.parseInt(stringTokenizer.nextToken());
         int destinationNode = Integer.parseInt(stringTokenizer.nextToken());
 
-        routes = new ArrayList[villagesNumber + 1];
+        int[] minimumTime = new int[villagesNumber + 1];
+        int[] returnMinimumTime = new int[villagesNumber + 1];
+        Arrays.fill(minimumTime, MAXIMUM);
+        Arrays.fill(returnMinimumTime, MAXIMUM);
+
+        ArrayList<Node>[] routes = new ArrayList[villagesNumber + 1];
+        ArrayList<Node>[] reversRoutes = new ArrayList[villagesNumber + 1];
+
         for (int i = 1; i <= villagesNumber; i++) {
             routes[i] = new ArrayList<>();
+            reversRoutes[i] = new ArrayList<>();
         }
-
 
         for (int i = 0; i < roadsNumber; i++) {
             stringTokenizer = new StringTokenizer(br.readLine());
@@ -40,13 +43,12 @@ public class BOJ1238 {
             int consumptionTime = Integer.parseInt(stringTokenizer.nextToken());
 
             routes[startNode].add(new Node(endNode, consumptionTime));
+            reversRoutes[endNode].add(new Node(startNode, consumptionTime));
         }
 
-        minimumTime = new int[villagesNumber + 1];
-        Arrays.fill(minimumTime, MAXIMUM);
 
-        dijkstra(destinationNode);
-        returnMinimumTime = Arrays.copyOf(minimumTime, minimumTime.length);
+        dijkstra(destinationNode, reversRoutes, minimumTime);
+        dijkstra(destinationNode, routes, returnMinimumTime);
 
         int max = 0;
         for (int i = 1; i <= villagesNumber; i++) {
@@ -54,12 +56,7 @@ public class BOJ1238 {
                 continue;
             }
 
-            minimumTime = new int[villagesNumber + 1];
-            Arrays.fill(minimumTime, MAXIMUM);
-
-            dijkstra(i);
-
-            int totalConsumptionTime = minimumTime[destinationNode] + returnMinimumTime[i];
+            int totalConsumptionTime = minimumTime[i] + returnMinimumTime[i];
             if (totalConsumptionTime < MAXIMUM && max < totalConsumptionTime) {
                 max = totalConsumptionTime;
             }
@@ -68,7 +65,7 @@ public class BOJ1238 {
         System.out.println(max);
     }
 
-    private static void dijkstra(int startNode) {
+    private static void dijkstra(int startNode, ArrayList<Node>[] routes, int[] minimumTime) {
         final PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
         priorityQueue.add(new Node(startNode, 0));
         minimumTime[startNode] = 0;
