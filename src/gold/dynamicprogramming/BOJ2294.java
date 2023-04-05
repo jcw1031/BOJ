@@ -1,3 +1,5 @@
+package gold.dynamicprogramming;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +11,7 @@ import java.util.StringTokenizer;
 /**
  * BOJ 2294번
  */
-public class Main {
+public class BOJ2294 {
 
     private static final int MAXIMUM = 10_001;
 
