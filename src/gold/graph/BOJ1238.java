@@ -46,7 +46,6 @@ public class BOJ1238 {
             reversRoutes[endNode].add(new Node(startNode, consumptionTime));
         }
 
-
         dijkstra(destinationNode, reversRoutes, minimumTime);
         dijkstra(destinationNode, routes, returnMinimumTime);
 
@@ -57,7 +56,7 @@ public class BOJ1238 {
             }
 
             int totalConsumptionTime = minimumTime[i] + returnMinimumTime[i];
-            if (totalConsumptionTime < MAXIMUM && max < totalConsumptionTime) {
+            if (max < totalConsumptionTime) {
                 max = totalConsumptionTime;
             }
         }
