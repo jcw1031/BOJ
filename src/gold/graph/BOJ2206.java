@@ -1,3 +1,5 @@
+package gold.graph;
+
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -6,7 +8,7 @@ import java.util.StringTokenizer;
 /**
  * BOJ 2206번
  */
-public class Main {
+public class BOJ2206 {
 
     private static final int MAXIMUM = 1_000 * 1_001;
     private static final Queue<Node> queue = new LinkedList<>();
