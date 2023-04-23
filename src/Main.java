@@ -1,127 +1,79 @@
-import java.io.*;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Stack;
 
 /**
- * BOJ 2206번
+ * 1935번
  */
 public class Main {
 
-    private static final int MAXIMUM = 1_000 * 1_001;
-    private static final Queue<Node> queue = new LinkedList<>();
-
-    private static int n;
-    private static int m;
-    private static char[][] map;
-    private static boolean[][] isVisited;
-    private static boolean[][] isBreakWallVisited;
-    private static int min = MAXIMUM;
+    private static final Stack<Character> operationStack = new Stack<>();
+    private static final Stack<Double> operandStack = new Stack<>();
+    public static final int CHARACTER_A_ASCII_CODE = 65;
+    private static int[] value;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        map = new char[n + 1][m + 1];
-        isVisited = new boolean[n + 1][m + 1];
-        isBreakWallVisited = new boolean[n + 1][m + 1];
+        int n = Integer.parseInt(br.readLine());
+        value = new int[n];
+        String postfixExpression = br.readLine();
 
-
-        for (int i = 1; i <= n; i++) {
-            String input = br.readLine();
-            for (int j = 1; j <= m; j++) {
-                map[i][j] = input.charAt(j - 1);
-            }
+        for (int i = 0; i < n; i++) {
+            value[i] = Integer.parseInt(br.readLine());
         }
 
-        queue.add(new Node(1, 1, 1, false));
-        bfs();
-
-        System.out.println(min == MAXIMUM ? -1 : min);
-    }
-
-    private static void bfs() {
-        while (!queue.isEmpty()) {
-            Node node = queue.poll();
-            if (node.invalid()) {
+        for (int i = 0; i < postfixExpression.length(); i++) {
+            char bitOfExpression = postfixExpression.charAt(i);
+            if (isOperation(bitOfExpression)) {
+                operationStack.push(bitOfExpression);
+                calculate();
                 continue;
             }
-
-            if (node.isBreakWall) {
-                isBreakWallVisited[node.getRow()][node.getColumn()] = true;
-            } else {
-                isVisited[node.getRow()][node.getColumn()] = true;
-            }
-            if (node.isDestination() && node.getDepth() < min) {
-                min = node.getDepth();
-                break;
-            }
-
-            queue.add(new Node(node.getRow() + 1, node.getColumn(), node.getDepth() + 1, node.isBreakWall()));
-            queue.add(new Node(node.getRow() - 1, node.getColumn(), node.getDepth() + 1, node.isBreakWall()));
-            queue.add(new Node(node.getRow(), node.getColumn() + 1, node.getDepth() + 1, node.isBreakWall()));
-            queue.add(new Node(node.getRow(), node.getColumn() - 1, node.getDepth() + 1, node.isBreakWall()));
+            operandStack.push((double) value[bitOfExpression - CHARACTER_A_ASCII_CODE]);
         }
+
+        Double result = operandStack.pop();
+        bw.write(String.format("%.2f", result));
+        bw.flush();
+        bw.close();
     }
 
-    static class Node {
-
-        private int row;
-        private int column;
-        private int depth;
-        private boolean isBreakWall;
-
-        public Node(int row, int column, int depth, boolean isBreakWall) {
-            this.row = row;
-            this.column = column;
-            this.depth = depth;
-            this.isBreakWall = isBreakWall;
-        }
-
-        public int getRow() {
-            return row;
-        }
-
-        public int getColumn() {
-            return column;
-        }
-
-        public int getDepth() {
-            return depth;
-        }
-
-        public boolean isBreakWall() {
-            return isBreakWall;
-        }
-
-        public boolean isDestination() {
-            if (row == n && column == m) {
-                return true;
-            }
+    public static boolean isOperation(char bit) {
+        if (Character.isAlphabetic(bit)) {
             return false;
         }
+        return true;
+    }
 
-        public boolean invalid() {
-            if (row < 1 || row > n || column < 1 || column > m) {
-                return true;
+    public static void calculate() {
+        Double rightOperand = operandStack.pop();
+        Double leftOperand = operandStack.pop();
+        Character operation = operationStack.pop();
+
+        double result = operate(leftOperand, rightOperand, operation);
+        operandStack.push(result);
+    }
+
+    private static double operate(Double leftOperand, Double rightOperand, Character operation) {
+        switch (operation) {
+            case '+': {
+                return leftOperand + rightOperand;
             }
-            if (isBreakWall && isBreakWallVisited[row][column]) {
-                return true;
+            case '-': {
+                return leftOperand - rightOperand;
             }
-            if (!isBreakWall && isVisited[row][column]) {
-                return true;
+            case '*': {
+                return leftOperand * rightOperand;
             }
-            if (map[row][column] == '1') {
-                if (isBreakWall) {
-                    return true;
-                }
-                isBreakWall = true;
-                return false;
+            case '/': {
+                return leftOperand / rightOperand;
             }
-            return false;
         }
+        return 0;
     }
 }
