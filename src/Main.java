@@ -1,79 +1,38 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.Stack;
+import java.util.StringTokenizer;
 
-/**
- * 1935번
- */
+// 3273
 public class Main {
-
-    private static final Stack<Character> operationStack = new Stack<>();
-    private static final Stack<Double> operandStack = new Stack<>();
-    public static final int CHARACTER_A_ASCII_CODE = 65;
-    private static int[] value;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
 
         int n = Integer.parseInt(br.readLine());
-        value = new int[n];
-        String postfixExpression = br.readLine();
-
+        st = new StringTokenizer(br.readLine());
+        int[] sequence = new int[n];
         for (int i = 0; i < n; i++) {
-            value[i] = Integer.parseInt(br.readLine());
+            sequence[i] = Integer.parseInt(st.nextToken());
         }
 
-        for (int i = 0; i < postfixExpression.length(); i++) {
-            char bitOfExpression = postfixExpression.charAt(i);
-            if (isOperation(bitOfExpression)) {
-                operationStack.push(bitOfExpression);
-                calculate();
+        int x = Integer.parseInt(br.readLine());
+        boolean[] need = new boolean[2_000_000];
+
+        int answer = 0;
+        for (int i = 0; i < n; i++) {
+            if (need[sequence[i]]) {
+                answer++;
+            }
+
+            int needNumber = x - sequence[i];
+            if (needNumber < 0) {
                 continue;
             }
-            operandStack.push((double) value[bitOfExpression - CHARACTER_A_ASCII_CODE]);
+            need[needNumber] = true;
         }
 
-        Double result = operandStack.pop();
-        bw.write(String.format("%.2f", result));
-        bw.flush();
-        bw.close();
-    }
-
-    public static boolean isOperation(char bit) {
-        if (Character.isAlphabetic(bit)) {
-            return false;
-        }
-        return true;
-    }
-
-    public static void calculate() {
-        Double rightOperand = operandStack.pop();
-        Double leftOperand = operandStack.pop();
-        Character operation = operationStack.pop();
-
-        double result = operate(leftOperand, rightOperand, operation);
-        operandStack.push(result);
-    }
-
-    private static double operate(Double leftOperand, Double rightOperand, Character operation) {
-        switch (operation) {
-            case '+': {
-                return leftOperand + rightOperand;
-            }
-            case '-': {
-                return leftOperand - rightOperand;
-            }
-            case '*': {
-                return leftOperand * rightOperand;
-            }
-            case '/': {
-                return leftOperand / rightOperand;
-            }
-        }
-        return 0;
+        System.out.println(answer);
     }
 }
